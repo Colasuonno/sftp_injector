@@ -36,7 +36,7 @@ class EventHandler(FileSystemEventHandler):
     def on_any_event(self, event):
         if event.__class__ is FileModifiedEvent or FileCreatedEvent:
             with sftp.cd(upload_path):
-                if ".swp" not in event.src_path and os.path.isfile(event.src_path):
+                if ".swp" not in event.src_path and os.path.isfile(event.src_path) and ".jar" in event.src_path:
                     print("file: " + event.src_path)
                     ftp_util.upload(sftp, event.src_path)
                     print("Uploaded changed files from " + observed_path)
